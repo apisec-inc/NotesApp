@@ -20,7 +20,7 @@ public class UsersController {
 
     protected static final BaseService<User> service = new BaseService<>();
 
-    @PostMapping(headers = "content-type: application/json")
+    @PostMapping()
     public @ResponseBody User create(@RequestBody User e) {
         logger.info("Create [{}]", e);
         e.setId(RandomStringUtils.randomNumeric(4));
