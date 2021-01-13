@@ -3,7 +3,8 @@ package com.notes.demo.services;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springdoc.core.converters.models.Pageable;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
@@ -14,12 +15,13 @@ public class BaseService<E> {
 
     protected Logger logger = LoggerFactory.getLogger(getClass());
 
-    Map<String, E> repository = new ConcurrentHashMap<>();
+    private Map<String, E> repository = new ConcurrentHashMap<>();
 
 
     public E save(String id, E e) {
         //e.setId(RandomStringUtils.randomNumeric(4));
-        return this.repository.put(id, e);
+        this.repository.put(id, e);
+        return e;
     }
 
     public E findById(String id) {

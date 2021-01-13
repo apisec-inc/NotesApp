@@ -1,10 +1,13 @@
 package com.notes.demo.rest;
 
+import com.notes.demo.entities.User;
 import com.notes.demo.services.BaseService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springdoc.core.converters.models.Pageable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -14,23 +17,25 @@ import java.util.Collection;
 public class UsersController {
 
     protected Logger logger = LoggerFactory.getLogger(getClass());
-    BaseService<com.notes.demo.entities.User> service = new BaseService<>();
+
+    protected static final BaseService<User> service = new BaseService<>();
 
     @PostMapping()
-    public com.notes.demo.entities.User create(@RequestBody com.notes.demo.entities.User e) {
+    public @ResponseBody User create(@RequestBody User e) {
         logger.info("Create [{}]", e);
         e.setId(RandomStringUtils.randomNumeric(4));
-        return this.service.save(e.getId(), e);
+        e = this.service.save(e.getId(), e);
+        return e;
     }
 
     @PutMapping()
-    public com.notes.demo.entities.User update(@RequestBody com.notes.demo.entities.User e) {
+    public @ResponseBody User update(@RequestBody User e) {
         logger.info("Save [{}]", e);
         return this.service.save(e.getId(), e);
     }
 
     @GetMapping(value = "/{id}")
-    public com.notes.demo.entities.User findById(@PathVariable("id") String id) {
+    public @ResponseBody User findById(@PathVariable("id") String id) {
         logger.info("Find by ID [{}]", id);
         return this.service.findById(id);
     }
@@ -42,8 +47,9 @@ public class UsersController {
     }
 
     @GetMapping()
-    public Collection<com.notes.demo.entities.User> findAll(Pageable pageable) {
+    public @ResponseBody Collection<User> findAll(@RequestParam(required = false, defaultValue = "0") Integer page, @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
         logger.info("Find all");
+        Pageable pageable = PageRequest.of(page, pageSize);
         return this.service.findAll(pageable);
     }
 }
