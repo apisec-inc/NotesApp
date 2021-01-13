@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping(value = "/api/users", consumes = "application/json", produces = "application/json")
 public class UsersController {
 
     protected Logger logger = LoggerFactory.getLogger(getClass());
 
     protected static final BaseService<User> service = new BaseService<>();
 
-    @PostMapping()
+    @PostMapping(headers = "content-type: application/json")
     public @ResponseBody User create(@RequestBody User e) {
         logger.info("Create [{}]", e);
         e.setId(RandomStringUtils.randomNumeric(4));

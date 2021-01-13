@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/api/notes")
+@RequestMapping(value = "/api/notes", consumes = "application/json", produces = "application/json")
 public class NoteController  {
 
     protected Logger logger = LoggerFactory.getLogger(getClass());
