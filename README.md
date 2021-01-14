@@ -56,7 +56,7 @@ ROLE_ADMIN||Token||Authorization: Bearer {{@Cmd | curl -s -X POST http://localho
 - Register NotesApp - Using the OpenAPI Specification file/url from https://localhost:8080/v3/api-docs
 - Deploy Private Scanner - If you're running this App on localhost / non-public IP.
 - Run Category Unsecured Endpoints 
-- Setup Default, UserA/UserB/UserC, & ROLE_USER/ROLE_PM/ROLE_ADMIN in the project using the values from above
+- Setup credentials in the project using the values from above
 - Run Category Excessive Data 
 - Customize assertion and run Category Sensitive Data - 
 ```
