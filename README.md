@@ -15,6 +15,18 @@
 
 ## How-to authenticate
 
+Built-in Users
+```
+user/password
+pm/password
+admin/password
+```
+
+Login URL
+```
+http://localhost:8080/login
+```
+
 
 As: User/PM/Admin
 ```
@@ -29,17 +41,15 @@ This should return a token like this
 {"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjEwNjMwMjc0LCJpYXQiOjE2MTA1OTQyNzR9.U1ZXPOWkTj2ZdjxAJN8whj0U6T85Fp6IlrqnRK4t-6A"}
 ```
 
-Ready made Apisec syntax for UserA/UserB/UserC - enter these in project / settings / environment / master / UserA/UserB/UserC
+Ready made Apisec syntax for Default/UserA/UserB/UserC & ROLES - enter these in project / settings / environment / master / "Add Bulk Authentications" 
 ```
-Authorization: Bearer {{@Cmd | curl -s -X POST http://localhost:8080/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "user","password": "password"}' | jq --raw-output '.token'}}
-Authorization: Bearer {{@Cmd | curl -s -X POST http://localhost:8080/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "pm","password": "password"}' | jq --raw-output '.token'}}
-Authorization: Bearer {{@Cmd | curl -s -X POST http://localhost:8080/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "admin","password": "password"}' | jq --raw-output '.token'}}
-```
-Ready made Apisec syntax for ROLES - enter these in project / settings / environment / master / ROLE_USER/ROLE_PM/ROLE_ADMIN
-```
-Authorization: Bearer {{@Cmd | curl -s -X POST http://localhost:8080/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "user","password": "password"}' | jq --raw-output '.token'}}
-Authorization: Bearer {{@Cmd | curl -s -X POST http://localhost:8080/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "pm","password": "password"}' | jq --raw-output '.token'}}
-Authorization: Bearer {{@Cmd | curl -s -X POST http://localhost:8080/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "admin","password": "password"}' | jq --raw-output '.token'}}
+Default||Token||Authorization: Bearer {{@Cmd | curl -s -X POST http://localhost:8080/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "user","password": "password"}' | jq --raw-output '.token'}}
+UserA||Token||Authorization: Bearer {{@Cmd | curl -s -X POST http://localhost:8080/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "user","password": "password"}' | jq --raw-output '.token'}}
+UserB||Token||Authorization: Bearer {{@Cmd | curl -s -X POST http://localhost:8080/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "pm","password": "password"}' | jq --raw-output '.token'}}
+UserC||Token||Authorization: Bearer {{@Cmd | curl -s -X POST http://localhost:8080/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "admin","password": "password"}' | jq --raw-output '.token'}}
+ROLE_USER||Token||Authorization: Bearer {{@Cmd | curl -s -X POST http://localhost:8080/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "user","password": "password"}' | jq --raw-output '.token'}}
+ROLE_PM||Token||Authorization: Bearer {{@Cmd | curl -s -X POST http://localhost:8080/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "pm","password": "password"}' | jq --raw-output '.token'}}
+ROLE_ADMIN||Token||Authorization: Bearer {{@Cmd | curl -s -X POST http://localhost:8080/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "admin","password": "password"}' | jq --raw-output '.token'}}
 ```
 
 ## How to register and onboard this app in Apisec.
