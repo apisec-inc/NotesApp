@@ -1,9 +1,10 @@
-package com.notes.demo;
+package com.notes.demo.rest;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.notes.demo.JWTUtil;
 import com.notes.demo.entities.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping()
+@RequestMapping(consumes = "application/json", produces = "application/json")
 public class AuthenticationController {
 
     protected Logger logger = LoggerFactory.getLogger(getClass());
