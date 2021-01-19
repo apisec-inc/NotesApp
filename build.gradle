@@ -1,8 +1,21 @@
+import java.text.SimpleDateFormat
+
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath('se.transmode.gradle:gradle-docker:1.2')
+	}
+}
+
 plugins {
 	id 'org.springframework.boot' version '2.4.1'
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java'
 }
+
+apply plugin: 'docker'
 
 group = 'com.notes'
 version = '0.0.1-SNAPSHOT'
@@ -30,4 +43,57 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+}
+
+
+
+
+springBoot{
+	buildInfo {
+		properties {
+			additionalProperties = [
+					'buildTimeStamp': getBuildTimeStamp()
+			]
+		}
+	}
+}
+
+task buildDockerLatest(type: Docker, dependsOn: build) {
+	push = false
+	tag = 'fxlabs/notesapp'
+	tagVersion = "latest"
+	dockerfile = file('src/main/docker/Dockerfile')
+	doFirst {
+		copy {
+			from 'build/libs/NotesApp-0.0.1-SNAPSHOT.jar'
+			into 'build/docker'
+		}
+	}
+}
+
+task buildDocker(type: Docker, dependsOn: build) {
+	push = false
+	tag = 'fxlabs/notesapp'
+	tagVersion = getDate()
+	dockerfile = file('src/main/docker/Dockerfile')
+	doFirst {
+		copy {
+			from 'build/libs/NotesApp-0.0.1-SNAPSHOT.jar'
+			into 'build/docker'
+		}
+	}
+}
+
+
+
+def getNightly() {
+	new Date().format('yyyy-MM-dd')
+}
+def getDate() {
+	new Date().format('yyyy-MM-dd-HHmm')
+}
+def getBuildTimeStamp(){
+	def simpleDateFormat = new SimpleDateFormat("EEE, dd-MMM-yyyy, HH:mm:ss")
+	simpleDateFormat.setTimeZone(TimeZone.getDefault())
+	return simpleDateFormat.format(new Date())
 }
