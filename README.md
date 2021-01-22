@@ -10,7 +10,7 @@
 ## URL
 ```
   http://localhost:8080/
-  http://localhost:8080/v3/api-docs
+  http://localhost:8080/v3/api-docs   
 ```
 
 ## How-to authenticate
@@ -64,28 +64,39 @@ ROLE_ADMIN||Token||Authorization: Bearer {{@CmdCache | curl -s -X POST http://lo
 ```
 
 ## How to register and onboard this app in Apisec.
-- Register NotesApp - Using the OpenAPI Specification file/url from https://localhost:8080/v3/api-docs
-- Deploy Private Scanner - If you're running this App on localhost / non-public IP.
-- Run Category Unsecured Endpoints 
-- Setup credentials in the project using the values from above
-- Run Category Excessive Data 
-- Customize assertion and run Category Sensitive Data - 
+- Register the NotesApp - Using the OpenAPI Specification URL e.g. http://notesapp.apisec.ai:8282/v3/api-docs. Note after registration the system will initiate Playbook creation process that can take  up to 1-3  mins
+- Optional: Deploy Private Scanner - If you're running this App on localhost / non-public IP.
+- Setup credentials: Go to Project/Settings/Environment/Master and delete 'Default,UserA,UserB,UserC,ROLE_USER,ROLE_PM,ROL_ADMIN. Click 'Add Bulk Authentications' enter text from 'Formatted Credentials' section below and hit Save.
+- Run Category Unsecured Endpoints and review results
+- Run Category Excessive Data & Injection and review results
+- Run Category ABAC_1 and review results
+
+- Customize & Run Category Sensitive Data. Go to Project/Categories search and select for 'Sensitive Data'. Replace assertions with below text and click "Save and Rewrite Playbooks" 
 ```
-Replace assertions for "Sensitive Data" category with and click "Save and Rewrite Playbooks"
 @Response.$..password != @Empty
 ```
-- Customize assertion and run Resource Limit (DDoS)
+- Customize & Run Category Resource Limit. Go to Project/Categories and search for 'Resource Limit'. Replace value in 'Comma separated query param' and click "Save and Rewrite Playbooks"
 ```
-Replace DDoS param value in DDoS category with and click "Save and Rewrite Playbooks"
 pageSize=101,page=1
-```
-- Customize assertion and run ABAC_1
-```
-Replace assertions for "ABAC_1" category with and click "Save and Rewrite Playbooks"
-
-Disallowed:@StatusCode == 401 OR @StatusCode == 403
-Create:@StatusCode == 200
 ```
 - Run RBAC & Review - Review RBAC map, make changes and save
 
 - Generate Penetration Testing Report
+
+## Using cloud instance of NotesApp
+Cloud NotesApp URL
+```
+http://notesapp.apisec.ai:8282/v3/api-docs
+```
+Formatted Credentials 
+```
+Default||Token||Authorization: Bearer {{@CmdCache | curl -s -X POST http://notesapp.apisec.ai:8282/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "user","password": "password"}' | jq --raw-output '.token'}}
+UserA||Token||Authorization: Bearer {{@CmdCache | curl -s -X POST http://notesapp.apisec.ai:8282/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "user","password": "password"}' | jq --raw-output '.token'}}
+UserB||Token||Authorization: Bearer {{@CmdCache | curl -s -X POST http://notesapp.apisec.ai:8282/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "pm","password": "password"}' | jq --raw-output '.token'}}
+UserC||Token||Authorization: Bearer {{@CmdCache | curl -s -X POST http://notesapp.apisec.ai:8282/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "admin","password": "password"}' | jq --raw-output '.token'}}
+ROLE_USER||Token||Authorization: Bearer {{@CmdCache | curl -s -X POST http://notesapp.apisec.ai:8282/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "user","password": "password"}' | jq --raw-output '.token'}}
+ROLE_PM||Token||Authorization: Bearer {{@CmdCache | curl -s -X POST http://notesapp.apisec.ai:8282/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "pm","password": "password"}' | jq --raw-output '.token'}}
+ROLE_ADMIN||Token||Authorization: Bearer {{@CmdCache | curl -s -X POST http://notesapp.apisec.ai:8282/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "admin","password": "password"}' | jq --raw-output '.token'}}
+```
+
+  
