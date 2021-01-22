@@ -63,7 +63,7 @@ ROLE_PM||Token||Authorization: Bearer {{@CmdCache | curl -s -X POST http://local
 ROLE_ADMIN||Token||Authorization: Bearer {{@CmdCache | curl -s -X POST http://localhost:8080/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "admin","password": "password"}' | jq --raw-output '.token'}}
 ```
 
-## How to register and onboard this app in Apisec.
+## How to register and onboard NotesApp in Apisec
 - Register the NotesApp - Using the OpenAPI Specification URL e.g. http://notesapp.apisec.ai:8282/v3/api-docs. Note after registration the system will initiate Playbook creation process that can take  up to 1-3  mins
 - Optional: Deploy Private Scanner - If you're running this App on localhost / non-public IP.
 - Setup credentials: Go to Project/Settings/Environment/Master and delete 'Default,UserA,UserB,UserC,ROLE_USER,ROLE_PM,ROL_ADMIN. Click 'Add Bulk Authentications' enter text from 'Formatted Credentials' section below and hit Save.
@@ -79,9 +79,9 @@ ROLE_ADMIN||Token||Authorization: Bearer {{@CmdCache | curl -s -X POST http://lo
 ```
 pageSize=101,page=1
 ```
-- Run RBAC & Review - Review RBAC map, make changes and save
+- Run Category RBAC. After the scan is complete wait for 2-5 mins, it may report a bunch of issues, you can ignore it. On Project page scroll down to "Open Vulnerabilities" section and click Actions/Review RBAC Map,  make a few changes by selecting/unselecting a few results then click  Ok / Commit & Rewrite Playbooks. Once the Playbooks are created (1 min) run the RBAC scan and review the results. 
 
-- Generate Penetration Testing Report
+- Generate Penetration Testing Report. Go to Project / Reports / Penetration Test Report
 
 ## Using cloud instance of NotesApp
 Cloud NotesApp URL
