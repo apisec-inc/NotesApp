@@ -1,0 +1,15 @@
+version: '3.5'
+services:
+
+  notesapp:
+    image: fxlabs/notesapp:latest
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      update_config:
+        parallelism: 2
+        delay: 10s
+        order: stop-first
+    ports:
+      - 8080:8080
