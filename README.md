@@ -64,7 +64,7 @@ ROLE_ADMIN||Token||Authorization: Bearer {{@CmdCache | curl -s -X POST http://lo
 ```
 
 ## How to register and onboard NotesApp in Apisec
-- Register the NotesApp - Using the OpenAPI Specification URL e.g. http://notesapp.apisec.ai:8282/v3/api-docs. Note after registration the system will initiate Playbook creation process that can take  up to 1-3  mins
+- Register the NotesApp - Using the OpenAPI Specification URL e.g. http://notesapp.apisec.ai:8080/v3/api-docs. Note after registration the system will initiate Playbook creation process that can take  up to 1-3  mins
 - Optional: Deploy Private Scanner - If you're running this App on localhost / non-public IP.
 - Setup credentials: Go to Project/Settings/Environment/Master and delete 'Default,UserA,UserB,UserC,ROLE_USER,ROLE_PM,ROL_ADMIN. Click 'Add Bulk Authentications' enter text from 'Formatted Credentials' section below and hit Save.
 - Run Category Unsecured Endpoints and review results
@@ -86,17 +86,17 @@ pageSize=101,page=1
 ## Using cloud instance of NotesApp
 Cloud NotesApp URL
 ```
-http://notesapp.apisec.ai:8282/v3/api-docs
+http://notesapp.apisec.ai:8080/v3/api-docs
 ```
 Formatted Credentials 
 ```
-Default||Token||Authorization: Bearer {{@CmdCache | curl -s -X POST http://notesapp.apisec.ai:8282/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "user","password": "password"}' | jq --raw-output '.token'}}
-UserA||Token||Authorization: Bearer {{@CmdCache | curl -s -X POST http://notesapp.apisec.ai:8282/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "user","password": "password"}' | jq --raw-output '.token'}}
-UserB||Token||Authorization: Bearer {{@CmdCache | curl -s -X POST http://notesapp.apisec.ai:8282/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "pm","password": "password"}' | jq --raw-output '.token'}}
-UserC||Token||Authorization: Bearer {{@CmdCache | curl -s -X POST http://notesapp.apisec.ai:8282/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "admin","password": "password"}' | jq --raw-output '.token'}}
-ROLE_USER||Token||Authorization: Bearer {{@CmdCache | curl -s -X POST http://notesapp.apisec.ai:8282/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "user","password": "password"}' | jq --raw-output '.token'}}
-ROLE_PM||Token||Authorization: Bearer {{@CmdCache | curl -s -X POST http://notesapp.apisec.ai:8282/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "pm","password": "password"}' | jq --raw-output '.token'}}
-ROLE_ADMIN||Token||Authorization: Bearer {{@CmdCache | curl -s -X POST http://notesapp.apisec.ai:8282/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "admin","password": "password"}' | jq --raw-output '.token'}}
+Default||Token||Authorization: Bearer {{@CmdCache | curl -s -X POST http://notesapp.apisec.ai:8080/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "user","password": "password"}' | jq --raw-output '.token'}}
+UserA||Token||Authorization: Bearer {{@CmdCache | curl -s -X POST http://notesapp.apisec.ai:8080/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "user","password": "password"}' | jq --raw-output '.token'}}
+UserB||Token||Authorization: Bearer {{@CmdCache | curl -s -X POST http://notesapp.apisec.ai:8080/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "pm","password": "password"}' | jq --raw-output '.token'}}
+UserC||Token||Authorization: Bearer {{@CmdCache | curl -s -X POST http://notesapp.apisec.ai:8080/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "admin","password": "password"}' | jq --raw-output '.token'}}
+ROLE_USER||Token||Authorization: Bearer {{@CmdCache | curl -s -X POST http://notesapp.apisec.ai:8080/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "user","password": "password"}' | jq --raw-output '.token'}}
+ROLE_PM||Token||Authorization: Bearer {{@CmdCache | curl -s -X POST http://notesapp.apisec.ai:8080/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "pm","password": "password"}' | jq --raw-output '.token'}}
+ROLE_ADMIN||Token||Authorization: Bearer {{@CmdCache | curl -s -X POST http://notesapp.apisec.ai:8080/login -H 'accept: application/json' -H 'content-type: application/json' -d '{"username": "admin","password": "password"}' | jq --raw-output '.token'}}
 ```
 
   
